@@ -34,3 +34,19 @@ score = 0
 for question, correct in questions:
     score += ask(question, correct)
 print("You scored", score, "out of", len(questions))
+
+import requests
+
+ 
+
+url = "https://api.open-meteo.com/v1/forecast?latitude=31.52&longitude=74.36&current_weather=true"
+
+response = requests.get(url)
+
+print(response.status_code)
+
+ 
+
+data = response.json()
+
+print(data["current_weather"]["temperature"])
