@@ -2,10 +2,10 @@ import os
 import requests
  
 # Change these three lines to your own city
-CITY = "Lahore"
-LAT = 31.52
-LON = 74.32
- 
+CITY = "Karachi"
+LAT = 24.86
+LON = 67.01
+
 # 1. Get the last 5 full days (past_days=5 also returns today, so we skip today)
 url = (
     "https://api.open-meteo.com/v1/forecast"
