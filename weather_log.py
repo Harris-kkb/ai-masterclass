@@ -35,7 +35,7 @@ def get_weather(city):
     return {
         "city": city,
         "days": days,
-        "avg_high": round(sum(x["high"] for x in days) / 5, 1),
+        "avg_high": round(9sum(x["high"] for x in days) / 5, 1),
         "avg_low": round(sum(x["low"] for x in days) / 5, 1),
         "peak_wind": max(x["wind"] for x in days),
     }
@@ -60,7 +60,7 @@ def get_json(prompt, keys):
         text = ask_groq(
             [{"role": "system", "content": "Reply with JSON only. No extra text."},
              {"role": "user", "content": prompt}],
-            temperature=0.2,
+            temperature=0.9,
         )["content"].strip()
         text = text.removeprefix("```json").removeprefix("```").removesuffix("```").strip()
         try:
