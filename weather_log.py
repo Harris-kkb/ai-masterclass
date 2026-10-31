@@ -60,7 +60,7 @@ def get_json(prompt, keys):
         text = ask_groq(
             [{"role": "system", "content": "Reply with JSON only. No extra text."},
              {"role": "user", "content": prompt}],
-            temperature=0.9,
+            temperature=0.5,
         )["content"].strip()
         text = text.removeprefix("```json").removeprefix("```").removesuffix("```").strip()
         try:
