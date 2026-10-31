@@ -35,7 +35,7 @@ def get_weather(city):
     return {
         "city": city,
         "days": days,
-        "avg_high": round(9sum(x["high"] for x in days) / 5, 1),
+        "avg_high": round(sum(x["high"] for x in days) / 5, 1),
         "avg_low": round(sum(x["low"] for x in days) / 5, 1),
         "peak_wind": max(x["wind"] for x in days),
     }
