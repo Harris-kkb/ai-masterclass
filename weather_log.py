@@ -4,7 +4,7 @@ import json
 import requests
  
 # ---------- Settings ----------
-CITY = "Lahore"   # change to your city (must be in CITIES below)
+CITY = "Karachi"   # change to your city (must be in CITIES below)
 CITIES = {
     "Lahore": (31.52, 74.32),
     "Karachi": (24.86, 67.01),
