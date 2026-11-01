@@ -16,10 +16,7 @@ jobs:
       - run: pip install requests
       - run: python weather_log.py
         env:
-    SHEET_URLS = {
-    SHEET_URL: ${{ secrets.SHEET_URL }}
-    SHEET_URL_2: ${{ secrets.SHEET_URL_2 }}
-    }
-
-    GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          "Account_1": ${{ secrets.SHEET_URL }},
+          "Account_2": ${{ secrets.SHEET_URL_2 }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
 
