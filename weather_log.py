@@ -92,7 +92,7 @@ def run_job(dry=False):
         "Use only the numbers above. Do not invent anything."
     )
     result = get_json(prompt, ["trend", "wind_risk", "advice", "send_alert", "reason"])
-    print(result)
+    print("AI Analysis:", result)
  
     payload = {
         "city": CITY,
@@ -111,14 +111,28 @@ def run_job(dry=False):
         print("Dry run. Nothing was sent to the sheet.")
         return
 
-    for sheet_url in [os.environ["SHEET_URL"], os.environ["SHEET_URL_2"]]:
+    # SAFE ACCESS: Check if URLs exist using .get() instead of forcing a KeyError
+    sheet_1 = os.environ.get("SHEET_URL")
+    sheet_2 = os.environ.get("SHEET_URL_2")
+    
+    # Filter out empty or missing environment values
+    active_urls = [url for url in [sheet_1, sheet_2] if url]
+
+    if not active_urls:
+        print("\n[WARNING]: No Google Sheet URLs found in environment variables.")
+        print("Set SHEET_URL and SHEET_URL_2 to push data automatically.")
+        print("Payload that would have been sent:\n", json.dumps(payload, indent=2))
+        return
+
+    for sheet_url in active_urls:
         response = requests.post(sheet_url, json=payload, timeout=30)
-        print(response.status_code, response.text)
+        print(f"Sheet update response ({response.status_code}): {response.text}")
 
         if response.status_code != 200 or response.text.strip() != "OK":
             raise SystemExit("Google Sheet update failed: " + response.text)
 
-    print("Both Google Sheets updated successfully.")
+    print(f"Successfully updated {len(active_urls)} Google Sheet(s).")
+
  
  
 # ---------- 4. The agent: the AI chooses a tool, your code runs it ----------
