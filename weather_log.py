@@ -128,7 +128,11 @@ def run_job(dry=False):
         response = requests.post(sheet_url, json=payload, timeout=30)
         print(f"Sheet update response ({response.status_code}): {response.text}")
 
-        if response.status_code != 200 or response.text.strip() != "OK":
+    for sheet_url_2 in active_urls:
+            response = requests.post(sheet_url_2, json=payload, timeout=30)
+            print(f"Sheet update response ({response.status_code}): {response.text}")
+
+    if response.status_code != 200 or response.text.strip() != "OK":
             raise SystemExit("Google Sheet update failed: " + response.text)
 
     print(f"Successfully updated {len(active_urls)} Google Sheet(s).")
