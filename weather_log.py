@@ -110,13 +110,15 @@ def run_job(dry=False):
     if dry:
         print("Dry run. Nothing was sent to the sheet.")
         return
- 
-    for sheet_url in [os.environ["SHEET_URL"], os.environ["SHEET_URL_2"]]:
-    response = requests.post(sheet_url, json=payload, timeout=30)
-    print(response.status_code, response.text)
 
-    if response.status_code != 200 or response.text.strip() != "OK":
-        raise SystemExit("Google Sheet update failed: " + response.text)
+    for sheet_url in [os.environ["SHEET_URL"], os.environ["SHEET_URL_2"]]:
+        response = requests.post(sheet_url, json=payload, timeout=30)
+        print(response.status_code, response.text)
+
+        if response.status_code != 200 or response.text.strip() != "OK":
+            raise SystemExit("Google Sheet update failed: " + response.text)
+
+    print("Both Google Sheets updated successfully.")
  
  
 # ---------- 4. The agent: the AI chooses a tool, your code runs it ----------
